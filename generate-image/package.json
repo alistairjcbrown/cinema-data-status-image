@@ -1,0 +1,9 @@
+{
+  "name": "generate-image",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "canvas": "^3.1.0"
+  }
+}
