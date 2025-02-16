@@ -31,7 +31,7 @@ function setupCanvas(color) {
   ctx.fillStyle = color;
   ctx.fillRect(0, 0, width, height);
 
-  const getLineHeight = (line) => (height / 20) * line
+  const getLineHeight = (line) => (height / 20) * line;
 
   function defaultStyles() {
     ctx.textAlign = "center";
@@ -83,7 +83,7 @@ function setupCanvas(color) {
 
   function drawCircle(column, line, status) {
     setupCircleStyles(status);
-    const x = 46 + (76 * column);
+    const x = 46 + 76 * column;
     const y = getLineHeight(line);
     const radius = 18;
     const startAngle = 0;
@@ -108,8 +108,8 @@ function setupCanvas(color) {
     setupCircleStyles(status);
     const radius = 18;
     ctx.beginPath();
-    ctx.moveTo(46 + (76 * columnFrom) + radius + 1, getLineHeight(line));
-    ctx.lineTo(46 + (76 * columnTo) - radius - 1, getLineHeight(line));
+    ctx.moveTo(46 + 76 * columnFrom + radius + 1, getLineHeight(line));
+    ctx.lineTo(46 + 76 * columnTo - radius - 1, getLineHeight(line));
     ctx.stroke();
   }
 

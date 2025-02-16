@@ -7,14 +7,14 @@ def button_callback(button_number):
 
     if button_number == 1:
         backlight_state = not backlight_state
-        screen.Backlight(backlight_state)
+        screen.Backlight(100 if backlight_state else 0)
 
 # Initialize the PiTFT screen
 screen = PiTFT_Screen()
 
 # Initialize backlight state
 backlight_state = True  # Assuming we start with the backlight on
-screen.Backlight(backlight_state)  # Ensure backlight is set to the initial state
+screen.Backlight(100)  # Ensure backlight is set to the initial state
 
 # Set up button interrupts
 screen.Button1Interrupt(lambda channel: button_callback(1))

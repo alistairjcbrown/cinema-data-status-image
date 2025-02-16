@@ -1,7 +1,7 @@
-require('dotenv').config()
-
 const { writeFileSync } = require("node:fs");
 const { join } = require("node:path");
+
+require("dotenv").config({ path: join(__dirname, "..", ".env") });
 
 const org = "clusterflick";
 const getLatestRelease = (repo) =>
@@ -34,7 +34,15 @@ const repos = [
     ).json();
     releaseData.retrievedAt = Date.now();
     writeData("release", repo, releaseData);
-    const runsData = await (await fetch(getLastestRuns(repo))).json();
+    const runsData = await (
+      await fetch(getLastestRuns(repo), {
+        method: "GET",
+        headers: {
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+      })
+    ).json();
     runsData.retrievedAt = Date.now();
     writeData("runs", repo, runsData);
   }

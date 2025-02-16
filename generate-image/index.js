@@ -1,6 +1,10 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { generateSuccessImage, generateFailureImage, generatePendingImage } = require("./generate-image");
+const {
+  generateSuccessImage,
+  generateFailureImage,
+  generatePendingImage,
+} = require("./generate-image");
 
 const readData = (prefix, repo) => {
   const filePath = path.join(
@@ -34,34 +38,41 @@ const repos = [
     });
   }
 
+  const createStatus = (run, status = "bank") => ({
+    name: run.name,
+    startedAt: run.created_at,
+    finishedAt: run.updated_at,
+    status,
+  });
+
   let overallStatus;
   let runsStatus = [];
   let failedAt;
   for (const { runs } of files) {
     const latestRun = runs.workflow_runs[0];
     if (overallStatus) {
-      runsStatus.push({ name: latestRun.name, status: "blank" });
+      runsStatus.push(createStatus(latestRun, "blank"));
       continue;
     }
 
     if (latestRun.status === "completed") {
       if (latestRun.conclusion === "success") {
-        runsStatus.push({ name: latestRun.name, status: "success" });
+        runsStatus.push(createStatus(latestRun, "success"));
       } else {
         if (!overallStatus) overallStatus = "failure";
-        runsStatus.push({ name: latestRun.name, status: "failure" });
+        runsStatus.push(createStatus(latestRun, "failure"));
         failedAt = latestRun.updated_at;
       }
     } else {
       if (!overallStatus) overallStatus = "pending";
-      runsStatus.push({ name: latestRun.name, status: "pending" });
+      runsStatus.push(createStatus(latestRun, "pending"));
     }
   }
   if (!overallStatus) overallStatus = "success";
 
-    const startedAt = files[0].runs.workflow_runs[0].created_at;
-    const finishedAt = files[files.length - 1].runs.workflow_runs[0].updated_at;
-    const retrievedAt = files[0].release.retrievedAt;
+  const startedAt = files[0].runs.workflow_runs[0].created_at;
+  const finishedAt = files[files.length - 1].runs.workflow_runs[0].updated_at;
+  const retrievedAt = files[0].release.retrievedAt;
 
   if (overallStatus === "success") {
     const totalSize = files[0].release.assets.reduce(
@@ -78,7 +89,7 @@ const repos = [
       assetCount,
       assetSize,
       tag,
-      retrievedAt
+      retrievedAt,
     };
 
     const { canvas } = generateSuccessImage(params);
@@ -91,7 +102,7 @@ const repos = [
       runsStatus,
       startedAt,
       failedAt,
-      retrievedAt
+      retrievedAt,
     };
 
     const { canvas } = generateFailureImage(params);
@@ -103,7 +114,7 @@ const repos = [
     const params = {
       runsStatus,
       startedAt,
-      retrievedAt
+      retrievedAt,
     };
 
     const { canvas } = generatePendingImage(params);

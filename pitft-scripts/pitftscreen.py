@@ -23,9 +23,8 @@ class PiTFT_Screen(object):
         self.pwm = GPIO.PWM(self.__pin_pwm, 100)  # 100 Hz frequency
         self.pwm.start(100)
 
-    def Backlight(self, light):
-        """Set the backlight on or off."""
-        self.pwm.ChangeDutyCycle(100 if light else 0)
+    def Backlight(self, level):
+        self.pwm.ChangeDutyCycle(level)
 
     def Button1Interrupt(self, callback=None, bouncetime=200):
         """Set up interrupt for button 1."""
