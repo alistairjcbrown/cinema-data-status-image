@@ -28,15 +28,15 @@ function generateSuccessImage({
       total + new Date(finishedAt).getTime() - new Date(startedAt).getTime(),
     0,
   );
-  ctx.font = "bold 16pt 'PT Sans'";
+  ctx.font = "bold 15pt 'PT Sans'";
   drawText(`Completed ${timeDifference(finishedAt)} ago`, 11);
   drawText(`Total time taken ${timeDifference(Date.now() - duration)}`, 13);
 
-  ctx.font = "normal 14pt 'PT Sans'";
+  ctx.font = "normal 13pt 'PT Sans'";
   drawText(`${assetSize}MB data retrieved (${assetCount} assets)`, 15.5);
   drawText(`Tagged with ${tag}`, 17.5);
 
-  ctx.font = "normal 10pt 'PT Sans'";
+  ctx.font = "normal 9pt 'PT Sans'";
   drawText(`Status generated at ${new Date(retrievedAt).toISOString()}`, 19.5);
 
   return ctx;
@@ -58,16 +58,16 @@ function generateFailureImage({ runsStatus, failedAt, retrievedAt }) {
 
   drawLine(8.5, "#cd787e");
 
-  ctx.font = "bold 16pt 'PT Sans'";
+  ctx.font = "bold 15pt 'PT Sans'";
   drawText(`Step started ${timeDifference(failedStep.startedAt)} ago`, 11);
   drawText(`and failed ${timeDifference(failedAt)} ago`, 13);
 
-  ctx.font = "normal 14pt 'PT Sans'";
+  ctx.font = "normal 13pt 'PT Sans'";
   drawText(`Failed on step ${runsStatus.indexOf(failedStep) + 1},`, 14.5);
   ctx.font = "bold 14pt 'PT Sans'";
   drawText(`"${failedStep.name}"`, 16.5);
 
-  ctx.font = "normal 10pt 'PT Sans'";
+  ctx.font = "normal 9pt 'PT Sans'";
   drawText(`Status generated at ${new Date(retrievedAt).toISOString()}`, 19.5);
 
   return ctx;
@@ -89,10 +89,10 @@ function generatePendingImage({ runsStatus, startedAt, retrievedAt }) {
 
   drawLine(8.5, "#eee780");
 
-  ctx.font = "bold 16pt 'PT Sans'";
+  ctx.font = "bold 15pt 'PT Sans'";
   drawText(`Step started ${timeDifference(pendingStep.startedAt)} ago`, 11);
 
-  ctx.font = "normal 14pt 'PT Sans'";
+  ctx.font = "normal 13pt 'PT Sans'";
   drawText(
     `Currently running step ${runsStatus.indexOf(pendingStep) + 1},`,
     14.5,
@@ -100,7 +100,7 @@ function generatePendingImage({ runsStatus, startedAt, retrievedAt }) {
   ctx.font = "bold 14pt 'PT Sans'";
   drawText(`"${pendingStep.name}"`, 16.5);
 
-  ctx.font = "normal 10pt 'PT Sans'";
+  ctx.font = "normal 9pt 'PT Sans'";
   drawText(`Status generated at ${new Date(retrievedAt).toISOString()}`, 19.5);
 
   return ctx;
