@@ -2,12 +2,10 @@ const { setupCanvas, timeDifference } = require("./utils");
 
 function generateSuccessImage({
   runsStatus,
-  startedAt,
   finishedAt,
   assetCount,
   assetSize,
   tag,
-  retrievedAt,
 }) {
   const { ctx, drawLine, drawText, drawCircle, drawCircleLine } =
     setupCanvas("#4BB543");
@@ -37,12 +35,12 @@ function generateSuccessImage({
   drawText(`Tagged with ${tag}`, 17.5);
 
   ctx.font = "normal 9pt 'PT Sans'";
-  drawText(`Status generated at ${new Date(retrievedAt).toISOString()}`, 19.5);
+  drawText(`Status generated at ${new Date().toISOString()}`, 19.5);
 
   return ctx;
 }
 
-function generateFailureImage({ runsStatus, failedAt, retrievedAt }) {
+function generateFailureImage({ runsStatus, failedAt }) {
   const { ctx, drawLine, drawText, drawCircle, drawCircleLine } =
     setupCanvas("#b5434b");
   ctx.font = "bold 30pt 'PT Sans'";
@@ -68,12 +66,12 @@ function generateFailureImage({ runsStatus, failedAt, retrievedAt }) {
   drawText(`"${failedStep.name}"`, 16.5);
 
   ctx.font = "normal 9pt 'PT Sans'";
-  drawText(`Status generated at ${new Date(retrievedAt).toISOString()}`, 19.5);
+  drawText(`Status generated at ${new Date().toISOString()}`, 19.5);
 
   return ctx;
 }
 
-function generatePendingImage({ runsStatus, startedAt, retrievedAt }) {
+function generatePendingImage({ runsStatus }) {
   const { ctx, drawLine, drawText, drawCircle, drawCircleLine } =
     setupCanvas("#bba616");
   ctx.font = "bold 30pt 'PT Sans'";
@@ -101,7 +99,7 @@ function generatePendingImage({ runsStatus, startedAt, retrievedAt }) {
   drawText(`"${pendingStep.name}"`, 16.5);
 
   ctx.font = "normal 9pt 'PT Sans'";
-  drawText(`Status generated at ${new Date(retrievedAt).toISOString()}`, 19.5);
+  drawText(`Status generated at ${new Date().toISOString()}`, 19.5);
 
   return ctx;
 }
